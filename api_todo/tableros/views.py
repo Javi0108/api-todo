@@ -1,12 +1,6 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from .models import Tableros, Listas, Tareas
 from .serializers import TablerosSerializer, ListasSerializer, TareasSerializer
-from rest_framework.exceptions import NotFound
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
 
 
 # Tableros ViewSet
@@ -34,9 +28,9 @@ class ListasByIdViewSet(viewsets.ModelViewSet):
     serializer_class = ListasSerializer
 
     def get_queryset(self):
-        id = self.kwargs.get('id')
-        return Listas.objects.filter(id=id)
-    
+        id = self.kwargs.get('tablero')
+        return Listas.objects.filter(tablero=id)
+
 class TareasViewSet(viewsets.ModelViewSet):
     queryset = Tareas.objects.all()
     serializer_class = TareasSerializer
