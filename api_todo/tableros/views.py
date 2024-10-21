@@ -28,8 +28,17 @@ class ListasByIdViewSet(viewsets.ModelViewSet):
     serializer_class = ListasSerializer
 
     def get_queryset(self):
-        id = self.kwargs.get('tablero')
-        return Listas.objects.filter(tablero=id)
+        id = self.kwargs.get('id')
+        return Listas.objects.filter(id=id)
+
+# Listas por ID del tablero
+class ListasByTableroIdViewSet(viewsets.ModelViewSet):
+    queryset = Listas.objects.all()
+    serializer_class = ListasSerializer
+
+    def get_queryset(self):
+        tablero = self.kwargs.get('tablero')
+        return Listas.objects.filter(tablero=tablero)
 
 class TareasViewSet(viewsets.ModelViewSet):
     queryset = Tareas.objects.all()
@@ -42,3 +51,11 @@ class TareasByIdViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         id = self.kwargs.get('id')
         return Tareas.objects.filter(id=id)
+    
+class TareasByListaIdViewSet(viewsets.ModelViewSet):
+    queryset = Tareas.objects.all()
+    serializer_class = TareasSerializer
+
+    def get_queryset(self):
+        lista = self.kwargs.get('lista')
+        return Tareas.objects.filter(lista=lista)
